@@ -1,0 +1,43 @@
+##### 公共 配置 #######
+
+#内置Tomcat容器配置
+server:
+  port: 8888
+  servlet:
+    #应用路径，配置应用路径，可方便进行反向代理
+    context-path:
+#    context-path: /baseadmin
+#基础配置
+spring:
+  profiles:
+    active: dev
+  application:
+    name: equipment-management
+
+  #数据库配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/equipment_rds?serverTimezone=GMT%2B8&characterEncoding=utf-8
+    username: root
+    password: zhangcaijian
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  #修改thymeleaf访问根路径
+  thymeleaf:
+    prefix: classpath:/view/
+
+  #mvc接收参数时对日期进行格式化
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  #jackson对响应回去的日期参数进行格式化
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  #打印SQL
+  jpa:
+    show-sql: true
+
+#是否需要输入验证码
+captcha:
+  enable: false
