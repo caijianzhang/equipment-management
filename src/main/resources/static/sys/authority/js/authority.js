@@ -34,14 +34,14 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','tree', 'util'], funct
                 "rows": data.rows //解析数据列表
             };
         }
-        , toolbar: '#authorityTableToolbarDemo'
+        , toolbar: '#authorityTableToolbar'
         , title: '用户列表'
         , cols: [[
             {field: 'authorityId', title: 'ID', hide: true}
             , {field: 'authorityName', title: '权限名称'}
             , {field: 'authorityContent', title: '权限内容'}
             , {field: 'authorityRemark', title: '权限描述'}
-            , {fixed: 'right', title: '操作', toolbar: '#authorityTableBarDemo'}
+            , {fixed: 'right', title: '操作', toolbar: '#authorityTableBar'}
         ]]
         , defaultToolbar: ['', '', '']
         , page: true

@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 拼接SQL工具类
@@ -53,6 +54,28 @@ public class SqlUtil {
 
         //拼接查询字段
         SqlUtil.appendQueryColumns(entityClass,entityVo,sql);
+
+        //拼接排序字段
+        SqlUtil.orderByColumn((PageCondition)entityVo,sql);
+
+        return sql;
+    }
+
+    /**
+     * 根据实体、Vo直接拼接全部SQL
+     * @param entityClass 实体类
+     * @param entityVo    继承了PageCondition分页条件的Vo类
+     * @return sql
+     */
+    public static StringBuilder joinSqlByEntityAndVo(Class<?> entityClass, Object entityVo, Map<String, Object> conditions){
+        //select 所有字段 from table
+        StringBuilder sql = SqlUtil.appendFields(entityClass);
+
+        //拼接查询字段
+        SqlUtil.appendQueryColumns(entityClass,entityVo,sql);
+
+        //拼接查询条件
+        SqlUtil.appendConditions(conditions, sql);
 
         //拼接排序字段
         SqlUtil.orderByColumn((PageCondition)entityVo,sql);
@@ -110,7 +133,7 @@ public class SqlUtil {
                         }
                         //开启等值查询
                         else {
-                            sql.append(" and ").append(column).append(" = '").append(SqlUtil.escapeSql((String) fieldValue)).append("'");
+                            sql.append(" and ").append(column).append(" = '").append(SqlUtil.escapeSql(fieldValue)).append("'");
                         }
                     }
                 } else {
@@ -180,6 +203,29 @@ public class SqlUtil {
             //输出到日志文件中
             log.error(ErrorUtil.errorInfoToString(e));
         }
+    }
+
+    /**
+     * 拼接查询条件
+     * @param conditions
+     * @param sql
+     * @return
+     */
+    public static StringBuilder appendConditions(Map<String, Object> conditions, StringBuilder sql) {
+        if (conditions != null) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                if (!StringUtils.isEmpty(entry.getKey())) {
+                    Object value = entry.getValue();
+                    if (value instanceof Number) {
+                        sql.append(" and ").append(entry.getKey()).append(" = ").append(value);
+                    } else {
+                        sql.append(" and ").append(entry.getKey()).append(" = '").append(value.toString()).append("'");
+                    }
+                }
+            }
+        }
+
+        return sql;
     }
 
     /**
@@ -268,5 +314,17 @@ public class SqlUtil {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * sql转义
+     * 动态拼写SQL，需要进行转义防范SQL注入！
+     */
+    private static String escapeSql(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+
+        return obj.toString();
     }
 }

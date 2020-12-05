@@ -11,8 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping("/department/")
 public class DepartmentController extends CommonController<DepartmentVo, Department, Long> {
-    @GetMapping("info")
-    public ModelAndView authority(){
-        return new ModelAndView("department/info");
+    @GetMapping("view")
+    public ModelAndView view(){
+        return new ModelAndView("department/department");
     }
 }

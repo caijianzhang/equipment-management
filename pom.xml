@@ -71,7 +71,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.13</version>
+            <version>5.1.49</version>
         </dependency>
 
         <!-- CopyUtil需要用到 -->
@@ -123,13 +123,21 @@
     <!--构建工具-->
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <artifactId>spring-boot-maven-plugin </artifactId>
                 <configuration>
-                    <finalName>${project.artifactId}</finalName>
-                    <outputDirectory>../package</outputDirectory>
+                    <fork>true</fork>
+                    <mainClass>com.ronnie.Application</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- 跳过启动测试 -->
             <plugin>
@@ -141,5 +149,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

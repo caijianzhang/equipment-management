@@ -36,14 +36,14 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate', 'tree', 'util'], func
                 "rows": data.rows //解析数据列表
             };
         }
-        , toolbar: '#departmentTableToolbarDemo'
+        , toolbar: '#departmentTableToolbar'
         , title: '班组列表'
         , cols: [[
             {field: 'id', title: 'ID', hide: true}
             , {field: 'name', title: '班组名称'}
             , {field: 'gmtCreated', title: '创建时间', hide: true}
             , {field: 'gmtModified', title: '更新时间', hide: true}
-            , {fixed: 'right', title: '操作', toolbar: '#departmentTableBarDemo'}
+            , {fixed: 'right', title: '操作', toolbar: '#departmentTableBar'}
         ]]
         , defaultToolbar: ['', '', '']
         , page: true

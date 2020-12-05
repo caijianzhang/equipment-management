@@ -13,6 +13,10 @@ public class EmployeeVo extends PageCondition implements Serializable {
 
     private Long departmentId;
 
+    private String account;
+
+    private String password;
+
     @Like
     private String name;
 

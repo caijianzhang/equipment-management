@@ -36,18 +36,19 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate', 'tree', 'util'], func
                 "rows": data.rows //解析数据列表
             };
         }
-        , toolbar: '#employeeTableToolbarDemo'
+        , toolbar: '#employeeTableToolbar'
         , title: '员工列表'
         , cols: [[
             {field: 'id', title: 'ID', hide: true}
+            , {field: 'account', title: '登录名'}
+            , {field: 'password', title: '密码', hide: true}
             , {field: 'name', title: '姓名'}
             , {field: 'age', title: '年龄'}
             , {field: 'phone', title: '电话号码'}
             , {field: 'education', title: '教育程度'}
-            , {field: 'name', title: '姓名'}
             , {field: 'gmtCreated', title: '创建时间', hide: true}
             , {field: 'gmtModified', title: '更新时间', hide: true}
-            , {fixed: 'right', title: '操作', toolbar: '#employeeTableBarDemo'}
+            , {fixed: 'right', title: '操作', toolbar: '#employeeTableBar'}
         ]]
         , defaultToolbar: ['', '', '']
         , page: true
@@ -144,6 +145,16 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate', 'tree', 'util'], func
 function employeeFormSave() {
     let employeeForm = $("#employeeForm").serializeObject();
     employeeForm.gmtModified = commonUtil.getNowTime();
+
+    if ($("#id").val() == "" && $("#passwordText").val() != "") {
+        layer.msg("密码不能为空", {icon: 2,time: 2000}, function () {});
+        return;
+    }
+
+    if ($("#passwordText").val() != "") {
+        employeeForm.password = hex_md5($("#passwordText").val());
+    }
+
     $.post(ctx + "/employee/save", employeeForm, function (data) {
 
         if(!data.flag){
@@ -158,39 +169,3 @@ function employeeFormSave() {
         tableIns.reload();
     });
 }
-
-/*
-$("#department-select").select2({
-    language : "zh-CN",// 指定语言为中文，国际化才起效
-    ajax : {
-        url : ctx + "/department/page",
-        type : "POST",
-        dataType : 'json',
-        delay : 250,// 延迟显示
-        data : function(params) {
-            return {
-                name : params.term, // 搜索框内输入的内容，传递到Java后端的parameter为username
-                page : params.page,// 第几页，分页哦
-                rows : 10// 每页显示多少行
-            };
-        },
-        // 分页
-        processResults : function(data, params) {
-            params.page = params.page || 1;
-
-            return {
-                results : data.data.rows,// 后台返回的数据集
-                pagination : {
-                    more : params.page < data.total// 总页数为10，那么1-9页的时候都可以下拉刷新
-                }
-            };
-        },
-        cache : false
-    },
-
-    minimumInputLength : 1,// 最少输入一个字符才开始检索
-    templateSelection : function(repo) {
-        return repo.name;
-    }
-});
-*/

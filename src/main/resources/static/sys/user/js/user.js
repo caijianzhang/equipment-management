@@ -36,7 +36,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate', 'tree', 'util'], func
                 "rows": data.rows //解析数据列表
             };
         }
-        , toolbar: '#userTableToolbarDemo'
+        , toolbar: '#userTableToolbar'
         , title: '用户列表'
         , cols: [[
             {field: 'userId', title: 'ID', hide: true}
@@ -49,7 +49,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate', 'tree', 'util'], func
             , {field: 'lastChangePwdTime', title: '最近修改密码时间', hide: true}
             , {field: 'gmtCreated', title: '创建时间', hide: true}
             , {field: 'gmtModified', title: '更新时间', hide: true}
-            , {fixed: 'right', title: '操作', toolbar: '#userTableBarDemo'}
+            , {fixed: 'right', title: '操作', toolbar: '#userTableBar'}
         ]]
         , defaultToolbar: ['', '', '']
         , page: true
@@ -84,12 +84,12 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate', 'tree', 'util'], func
                 "rows": data.rows //解析数据列表
             };
         }
-        , toolbar: '#userOnLineTableToolbarDemo'
+        , toolbar: '#userOnLineTableToolbar'
         , title: '当前在线用户'
         , cols: [[
             {field: 'loginName', title: '', hide: true}
             , {field: 'loginName', title: '登录名'}
-            , {fixed: 'right', title: '操作', toolbar: '#userOnLineTableBarDemo'}
+            , {fixed: 'right', title: '操作', toolbar: '#userOnLineTableBar'}
         ]]
         , defaultToolbar: ['', '', '']
         , height: height

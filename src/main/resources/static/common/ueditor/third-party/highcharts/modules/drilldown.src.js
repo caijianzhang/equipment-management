@@ -5,7 +5,7 @@
  * Last revision: 2013-02-18
  * License: MIT License
  *
- * Demo: http://jsfiddle.net/highcharts/Vf3yT/
+ * : http://jsfiddle.net/highcharts/Vf3yT/
  */
 
 /*global HighchartsAdapter*/

@@ -15,6 +15,10 @@ public class Employee {
 
     private Long departmentId;
 
+    private String account;
+
+    private String password;
+
     private String name;
 
     private Integer age;

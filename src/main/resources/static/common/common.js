@@ -52,7 +52,7 @@ jQueryExtend = {
                     return;
                 }
                 let input = form.find("[name='" + name + "']")[0];
-                if ($.inArray(input.type, ["text", "password", "hidden", "select-one", "textarea"]) > -1) {
+                if ($.inArray(input.type, ["text", "password", "hidden", "select-one", "select", "textarea"]) > -1) {
                     $(input).val(value);
                 } else if (input.type === "radio" || input.type === "checkbox") {
                     form.find("[name='" + name + "'][value='" + value + "']").attr("checked", true);

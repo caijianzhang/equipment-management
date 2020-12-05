@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title th:text="${sys.sysName} + '  登录页面'"></title>
     <link rel="shortcut icon" th:href='${sys.sysLogo}' th:mce_href='${sys.sysLogo}' type="image/x-icon">
+    <link rel="shortcut icon" th:href='@{/image/company.jpg}' th:mce_href='@{/image/company.jpg}' type="image/x-icon">
     <!-- 引入公用部分 -->
     <script th:replace="common/head::static"></script>
     <style>
@@ -22,7 +23,7 @@
 <div class="main">
     <form class="layui-form layui-form-pane">
         <div class="layui-form-item">
-            <h1 style="text-align: center" th:text="${sys.sysName}">XXX系统</h1>
+            <img th:src='@{/image/company.jpg}'/>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">账号<i class="layui-icon layui-icon-username"></i></label>

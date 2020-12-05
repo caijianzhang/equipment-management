@@ -14,13 +14,6 @@ spring:
   application:
     name: equipment-management
 
-  #数据库配置
-  datasource:
-    url: jdbc:mysql://localhost:3306/equipment_rds?serverTimezone=GMT%2B8&characterEncoding=utf-8
-    username: root
-    password: zhangcaijian
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
   #修改thymeleaf访问根路径
   thymeleaf:
     prefix: classpath:/view/

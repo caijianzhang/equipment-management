@@ -4,8 +4,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${sys.sysName}">华电重工机械后台管理系统</title>
-    <link rel="shortcut icon" th:href='${sys.sysLogo}' th:mce_href='${sys.sysLogo}' type="image/x-icon">
+    <title th:text="${sys.sysName}">华电重工机械有限公司设备保养及维修管理系统</title>
+    <link rel="shortcut icon" th:href='@{/image/logo.jpg}' th:mce_href='@{/image/logo.jpg}' type="image/x-icon">
     <!-- 引入公用部分 -->
     <script th:replace="common/head::static"></script>
 </head>
@@ -14,7 +14,7 @@
 
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <div class="layui-header"  th:style="${' background-color:' + sys.sysColor + ' !important;'}">
-        <div class="layui-logo"><img th:src='${sys.sysLogo}' class="layui-nav-img"/> <span th:text="${sys.sysName}"></span></div>
+        <div class="layui-logo"><img th:src='@{/image/logo.jpg}' class="layui-nav-img"/> <span th:text="${sys.sysName}"></span></div>
         <ul class="layui-nav layui-layout-left">
             <!-- 动态读取加载用户快捷菜单 -->
             <li class="layui-nav-item" th:each="menu,iterStat : ${shortcutMenuList}" th:unless="${#lists.size(menu.children)} eq 0">
@@ -63,7 +63,7 @@
     <!-- 内容主体区域 -->
     <div class="layui-body" style="overflow-y: hidden;">
         <!--   动态选项卡   -->
-        <div class="layui-tab" lay-filter="demo" lay-allowclose="true">
+        <div class="layui-tab" id="equipment-tab" lay-filter="equipment-tab" lay-allowclose="true">
             <!-- 标题 -->
             <ul class="layui-tab-title">
                 <li class="layui-this" lay-id="11">首页</li>
@@ -117,14 +117,14 @@
             //如果不存在
             if ($(".layui-tab-title").find("li[lay-id='" + id + "']").length <= 0) {
                 let height = document.documentElement.clientHeight - 160 + "px";
-                element.tabAdd('demo', {
+                element.tabAdd('equipment-tab', {
                     title: text,
                     //iframe子页面onload新增监听src为/loginPage是父页面跳转/loginPage，解决“俄罗斯套娃”问题
                     content: "<iframe onload='if(this.contentWindow.location.pathname == \""+ctx+"/loginPage\"){window.location.href = \""+ctx+"/loginPage\"} $(this)[0].height = document.documentElement.clientHeight-160' width='100%' height='" + height + "' frameborder='0' scrolling='auto' src=\"" + url + "\"></iframe>",
                     id: id
                 });
             }
-            element.tabChange('demo', id);
+            element.tabChange('equipment-tab', id);
         });
     });
 </script>

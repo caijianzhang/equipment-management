@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 引入公用部分 -->
+    <script th:replace="common/head::static"></script>
+    <!-- 样式 -->
+    <link th:href="@{/equipment/css/equipment.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="layui-row layui-col-space15">
+    <!-- 树 -->
+    <div class="layui-col-md6">
+        <div class="layui-card">
+            <div class="layui-card-header">设备列表</div>
+            <div class="layui-card-body">
+                <!-- 表格主体 -->
+                <table class="layui-hide" id="equipmentTable" lay-filter="test"></table>
+                <!-- 模板 -->
+                <script type="text/html" id="equipmentTableToolbar">
+                    <div class="layui-btn-container">
+                        <button class="layui-btn layui-btn-sm" lay-event="addData">新增<i class="layui-icon layui-icon-add-1"></i></button>
+                        <input type="text" id="queryByName" name="queryByName" autocomplete="off"
+                               placeholder="输入设备名" class="layui-input layui-btn-sm">
+                        <button class="layui-btn layui-btn-sm" lay-event="query">查询<i class="layui-icon layui-icon-search"></i></button>
+                    </div>
+                </script>
+                <script type="text/html" id="equipmentTableBar">
+                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑<i class="layui-icon layui-icon-edit"></i></a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除<i class="layui-icon layui-icon-close"></i></a>
+                </script>
+                <script type="text/html" id="equipmentMaintenanceHrefTemp">
+                    <a href="javascript:openEquipmentMaintenance({{d.id}}, '{{d.name}}', {{d.departmentId}});" class="layui-table-link" target="_self">维护计划</a>
+                </script>
+                <script type="text/html" id="equipmentUpkeepHrefTemp">
+                    <a href="javascript:openEquipmentUpkeep({{d.id}}, '{{d.name}}', {{d.departmentId}});" class="layui-table-link" target="_self">保养计划</a>
+                </script>
+            </div>
+        </div>
+    </div>
+    <!-- 操作表单 -->
+    <div class="layui-col-md6">
+        <div class="layui-card">
+            <div class="layui-card-header">操作表单</div>
+            <div class="layui-card-body">
+                <form id="equipmentForm" class="layui-form layui-form-pane">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">设备名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="name" autocomplete="off" placeholder="设备名称"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">设备编号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="number" autocomplete="off" placeholder="设备编号"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">设备类型</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="type" autocomplete="off" placeholder="设备类型"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">设备原值</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="value" autocomplete="off" placeholder="设备原值"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">厂商</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="manufacturer" autocomplete="off" placeholder="厂商"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">出厂编号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="factoryNumber" autocomplete="off" placeholder="出厂编号"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">出厂日期</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="factoryDate" id="factoryDate" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">所属班组</label>
+                        <div class="layui-input-block">
+                            <select id="department-select" name="departmentId" class="layui-select" >
+                                <option value="" selected>请选择班组</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">安装位置</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="position" autocomplete="off" placeholder="安装位置"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">创建时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="gmtCreated" autocomplete="off" placeholder="创建时间"
+                                   class="layui-input" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">更新时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="gmtModified" autocomplete="off" placeholder="更新时间"
+                                   class="layui-input" readonly="readonly" disabled="disabled">
+                        </div>
+                    </div>
+
+                    <!-- 隐藏域 -->
+                    <input type="text" name="id" hidden="hidden"/>
+                </form>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <a class="layui-btn" onclick="equipmentFormSave()">保存</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    // 支持自动填充表单功能
+    jQueryExtend.fnExtend();
+</script>
+<!-- js -->
+<script th:src="@{/equipment/js/equipment.js}"></script>
+</html>
